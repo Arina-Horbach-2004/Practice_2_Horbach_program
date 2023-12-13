@@ -167,15 +167,31 @@ namespace Practice_2_Horbach_Program
         {
             //Query 7: Вивести перший матч у 2023 році, в якому збірна України виграла.
 
-            FootballGame g = null;   // Корегуємо запит !!!
+            FootballGame g = null;
+
+            foreach (var game in games)
+            {
+                if (game.Date.Year == 2023 && ((game.Home_team == "Ukraine" && game.Home_score > game.Away_score) || (game.Away_team == "Ukraine" && game.Away_score > game.Home_score)))
+                {
+                    g = game;
+                    break;
+                }
+            }
+            // Корегуємо запит !!!
 
 
             // Перевірка
             Console.WriteLine("\n======================== QUERY 7 ========================");
-
-            // див. приклад як має бути виведено:
-
-
+            if (g != null)
+            {
+                string opponent = g.Home_team == "Ukraine" ? g.Away_team : g.Home_team;
+                Console.WriteLine($"{g.Date:dd.MM.yyyy} {opponent} - Ukraine, Score: {g.Home_score} - {g.Away_score}, Country: {g.Country}");
+            }
+            else
+            {
+                Console.WriteLine("Матчів не знайдено.");
+            }
+            
         }
 
         // Запит 8
