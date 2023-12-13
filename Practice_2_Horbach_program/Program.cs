@@ -226,14 +226,30 @@ namespace Practice_2_Horbach_Program
             //Query 9: Перетворити всі матчі UEFA Nations League у 2023 році на матчі з наступними властивостями:
             // MatchYear - рік матчу, Game - назви обох команд через дефіс (першою - Home_team), Result - результат для першої команди (Win, Loss, Draw)
 
-            var selectedGames = games;   // Корегуємо запит !!!
+            var selectedGames = games
+                .Where(game => game.Date.Year == 2023 && game.Tournament == "UEFA Nations League")
+                .ToList();  // Корегуємо запит !!!
 
             // Перевірка
             Console.WriteLine("\n======================== QUERY 9 ========================");
+            foreach (var game in selectedGames)
+            {
+                string result;
+                if (game.Home_score > game.Away_score)
+                {
+                    result = "Win";
+                }
+                else if (game.Home_score < game.Away_score)
+                {
+                    result = "Loss";
+                }
+                else
+                {
+                    result = "Draw";
+                }
 
-            // див. приклад як має бути виведено:
-
-
+                Console.WriteLine($"{game.Date:yyyy} {game.Home_team}-{game.Away_team}, Result for team1: {result}");
+            }
         }
 
         // Запит 10
